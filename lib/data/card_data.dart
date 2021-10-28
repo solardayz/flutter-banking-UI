@@ -1,3 +1,4 @@
+import 'package:banking/constant/colors.dart';
 import 'package:flutter/material.dart';
 
 class CardModel {
@@ -21,11 +22,11 @@ List<CardModel> myCards = [
       cardNumber: "**** **** **** 1234",
       expDate: "12/22",
       cvv: "**2",
-      cardColor: Colors.blue),
+      cardColor: kPrimaryColor),
   CardModel(
-      cardHolderName: "John Doe",
+      cardHolderName: "JAY K",
       cardNumber: "**** **** **** 3333",
       expDate: "12/25",
       cvv: "**6",
-      cardColor: Colors.red)
+      cardColor: kSecondaryColor)
 ];

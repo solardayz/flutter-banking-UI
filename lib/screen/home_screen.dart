@@ -1,10 +1,9 @@
 import 'package:banking/data/card_data.dart';
 import 'package:flutter/material.dart';
+import 'package:banking/constant/banking_text_style.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
-  // late CardModel card;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +35,7 @@ class MyCard extends StatelessWidget {
       height: 200,
       width: 350,
       decoration: BoxDecoration(
-        color: Colors.red,
+        color: card.cardColor,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -50,26 +49,45 @@ class MyCard extends StatelessWidget {
                 children: [
                   Text(
                     'CARD NAME',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: BankingTextSyle.MY_CARD_TITLE,
                   ),
-                  Text('JONE'),
+                  Text(
+                    card.cardHolderName.toString(),
+                    style: BankingTextSyle.MY_CARD_SUB_TITLE,
+                  ),
                 ],
               ),
-              Text('XXXX XXXX XXXX 1111'),
+              Text(
+                card.cardNumber.toString(),
+                style: BankingTextSyle.MY_CARD_SUB_TITLE,
+              ),
               Row(
                 children: [
-                  Text('EXP DATE'),
-                  Text('22/33'),
+                  Column(
+                    children: [
+                      Text(
+                        'EXP DATE',
+                        style: BankingTextSyle.MY_CARD_TITLE,
+                      ),
+                      Text(
+                        card.expDate.toString(),
+                        style: BankingTextSyle.MY_CARD_SUB_TITLE,
+                      ),
+                    ],
+                  ),
                   SizedBox(
                     width: 20,
                   ),
                   Column(
                     children: [
-                      Text('CVV NUMBER'),
-                      Text('334'),
+                      Text(
+                        'CVV NUMBER',
+                        style: BankingTextSyle.MY_CARD_TITLE,
+                      ),
+                      Text(
+                        card.cvv.toString(),
+                        style: BankingTextSyle.MY_CARD_SUB_TITLE,
+                      ),
                     ],
                   ),
                 ],
