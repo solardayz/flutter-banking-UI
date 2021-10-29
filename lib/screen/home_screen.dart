@@ -1,6 +1,10 @@
-import 'package:banking/data/card_data.dart';
-import 'package:flutter/material.dart';
 import 'package:banking/constant/banking_text_style.dart';
+import 'package:banking/data/card_data.dart';
+import 'package:banking/data/transaction_data.dart';
+import 'package:banking/screen/transaction_card.dart';
+import 'package:flutter/material.dart';
+
+import 'my_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -8,103 +12,54 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.separated(
-          itemBuilder: (context, index) {
-            return MyCard(
-              card: myCards[index],
-            );
-          },
-          separatorBuilder: (context, index) {
-            return SizedBox(
-              width: 10,
-            );
-          },
-          itemCount: myCards.length),
-    );
-  }
-}
-
-class MyCard extends StatelessWidget {
-  final CardModel card;
-  const MyCard({Key? key, required this.card}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(20),
-      height: 200,
-      width: 350,
-      decoration: BoxDecoration(
-        color: card.cardColor,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: SingleChildScrollView(
+        physics: ClampingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'CARD NAME',
-                    style: BankingTextSyle.MY_CARD_TITLE,
-                  ),
-                  Text(
-                    card.cardHolderName.toString(),
-                    style: BankingTextSyle.MY_CARD_SUB_TITLE,
-                  ),
-                ],
+              Container(
+                height: 200,
+                child: ListView.separated(
+                  physics: ClampingScrollPhysics(),
+                  separatorBuilder: (context, index) {
+                    return SizedBox(
+                      width: 10,
+                    );
+                  },
+                  itemCount: myCards.length,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return MyCard(
+                      card: myCards[index],
+                    );
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 30,
               ),
               Text(
-                card.cardNumber.toString(),
-                style: BankingTextSyle.MY_CARD_SUB_TITLE,
+                'Recent Transations',
+                style: BankingTextSyle.BODY_TEXT,
               ),
-              Row(
-                children: [
-                  Column(
-                    children: [
-                      Text(
-                        'EXP DATE',
-                        style: BankingTextSyle.MY_CARD_TITLE,
-                      ),
-                      Text(
-                        card.expDate.toString(),
-                        style: BankingTextSyle.MY_CARD_SUB_TITLE,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        'CVV NUMBER',
-                        style: BankingTextSyle.MY_CARD_TITLE,
-                      ),
-                      Text(
-                        card.cvv.toString(),
-                        style: BankingTextSyle.MY_CARD_SUB_TITLE,
-                      ),
-                    ],
-                  ),
-                ],
+              ListView.separated(
+                itemCount: myTransactions.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                separatorBuilder: (context, index) {
+                  return SizedBox(height: 10);
+                },
+                itemBuilder: (context, index) {
+                  return TransactionCard(
+                    transaction: myTransactions[index],
+                  );
+                },
               ),
             ],
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: 50,
-                height: 50,
-                child: Text('사진'),
-              ),
-            ],
-          )
-        ],
+        ),
       ),
     );
   }
